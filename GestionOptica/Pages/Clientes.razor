@@ -1,0 +1,91 @@
+﻿@page "/Clientes"
+@page "/Clientes/{id:int}"
+@inject IClienteService ClienteService
+@inject IObraSocialService ObraSocialService
+@inject NavigationManager NavigationManager
+@inject IProvinciaService ProvinciaService
+
+
+<h3>Clientes</h3>
+<EditForm Model="@cliente">
+
+    <div class="form-group row">
+        <table class="table">
+            <tr>
+                <td class="text-left col-sm-2">Apellido y Nombre</td>
+                <td><input class="form-control col-sm-6" type="text" @bind="cliente.ApellidoNombre"></td>
+            </tr>
+            <tr>
+                <td class="text-left col-sm-2">Fecha Nacimiento</td>
+                <td><InputDate class="form-control col-sm-2 " type="date" @bind-Value:format="dd-MM-yyyy" @bind-Value="cliente.FechaNacimiento" /></td>
+            </tr>
+            <tr>
+                <td class="text-left col-sm-2">Documento</td>
+                <td><input class="form-control col-sm-2" type="text" @bind="cliente.Documento"></td>
+            </tr>
+            <tr>
+                <td class="text-left col-sm-2">ObraSocial</td>
+                <td>
+                    <InputSelect id="ObraSocial" class="form-control col-sm-2 " @bind-Value="cliente.ObraSocialId">
+                        @if (obrasocial is not null)
+                        {
+                            @foreach (var item in obrasocial)
+                            {
+                                <option value="@item.ObraSocialId">@item.Descripcion</option>
+                            }
+                        }
+                    </InputSelect>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Save" @onclick="@SaveCliente" />
+                    <input type="button" value="Cancelar" @onclick="@Cancelar" />
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</EditForm>
+
+
+
+@code {
+
+    [Parameter]
+
+    public int id { get; set; }
+
+
+    public IEnumerable<ObraSocial> obrasocial { get; set; }
+
+
+    Cliente cliente = new Cliente();
+
+    public string variable = "1";
+
+    protected override async Task OnInitializedAsync()
+    {
+        obrasocial = await ObraSocialService.GetAllObraSocial();
+
+        if (id != 0)
+        {
+            cliente = await ClienteService.GetClienteDetalle(id);
+
+        }
+    }
+
+    protected async Task SaveCliente()
+    {
+        await ClienteService.SaveCliente(cliente);
+
+        NavigationManager.NavigateTo("/");
+
+    }
+
+    protected async Task Cancelar()
+    {
+        NavigationManager.NavigateTo("/");
+    }
+
+}

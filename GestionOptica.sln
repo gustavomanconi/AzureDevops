@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31624.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GestionOptica", "GestionOptica\GestionOptica.csproj", "{54384DAD-1741-49C8-89D1-C708C9ED5D4C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{54384DAD-1741-49C8-89D1-C708C9ED5D4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54384DAD-1741-49C8-89D1-C708C9ED5D4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54384DAD-1741-49C8-89D1-C708C9ED5D4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54384DAD-1741-49C8-89D1-C708C9ED5D4C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E9B622B3-9A7D-4F6B-8011-317FDEF7A030}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,67 @@
+﻿@page "/"
+@using GestionOptica.Models
+@inject IClienteService ClienteService
+@inject NavigationManager NavigationManager
+
+<h3>Listado de Clientes</h3>
+
+@Message
+<br />
+<div>
+    <a href="/Clientes"<i>Agregar Cliente</i></a>
+</div>
+
+@if (clientes == null)
+{
+    <p><em>Cargando...</em></p>
+
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Apellido y Nombre</th>
+                <th>Fecha Nacimiento</th>
+                <th>Documento</th>
+                <th>Editar</th>
+                <th>Borrar</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in clientes)
+            {
+                <tr>
+                    <td>@item.ApellidoNombre</td>
+                    <td>@item.FechaNacimiento</td>
+                    <td>@item.Documento</td>
+                    <td><a href="/Clientes/@item.ClienteId"><i>Editar</i></a></td>
+                    <td><a href="/ClienteBorrar/@item.ClienteId"><i>Borrar</i></a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+@code {
+
+    public IEnumerable<Cliente> clientes { get; set; }
+    public string Message { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            clientes = await ClienteService.GetAllClientes();
+        }
+        catch (Exception e)
+
+        {
+            Message = e.Message;
+        }
+
+    }
+
+}

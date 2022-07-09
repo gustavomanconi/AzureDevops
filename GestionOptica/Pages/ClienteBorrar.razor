@@ -1,0 +1,62 @@
+﻿@page "/ClienteBorrar/{id:int}"
+@inject IClienteService ClienteService
+@inject NavigationManager NavigationManager
+
+<h3>Borrar Cliente</h3>
+
+<EditForm Model="@cliente">
+
+    <div class="form-group row">
+        <table class="table">
+            <tr>
+                <td class="text-left col-sm-2">Apellido y Nombre</td>
+                <td><input class="form-control col-sm-6" type="text" @bind="cliente.ApellidoNombre"></td>
+            </tr>
+            <tr>
+                <td class="text-left col-sm-2">Fecha Nacimiento</td>
+                <td><InputDate class="form-control col-sm-2 " type="date" @bind-Value:format="dd-MM-yyyy" @bind-Value="cliente.FechaNacimiento" /></td>
+            </tr>
+            <tr>
+                <td class="text-left col-sm-2">Documento</td>
+                <td><input class="form-control col-sm-2" type="text" @bind="cliente.Documento"></td>
+            </tr>
+
+            <tr>
+                <td>
+                    <input type="submit" value="Borrar" @onclick="@DeleteCliente" />
+                    <input type="button" value="Cancelar" @onclick="@Cancelar" />
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</EditForm>
+
+
+
+@code {
+
+    [Parameter]
+
+    public int id { get; set; }
+
+    Cliente cliente = new Cliente();
+
+    protected override async Task OnInitializedAsync()
+    {
+        cliente = await ClienteService.GetClienteDetalle(id);
+    }
+
+    protected async Task DeleteCliente()
+    {
+        await ClienteService.DeleteCliente(id);
+        NavigationManager.NavigateTo("/");
+
+    }
+
+    protected async Task Cancelar()
+    {
+        NavigationManager.NavigateTo("/");
+    }
+
+}
